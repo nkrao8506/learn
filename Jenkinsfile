@@ -3,7 +3,7 @@ pipeline {
 
     stages{
 
-        stage('Checkout){
+        stage('Checkout'){
             steps{
                 git(
                     url: 'https://github.com/nkrao8506/learn.git',
