@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout your repo
-                git 'https://github.com/nkrao8506/learn.git'
+                git branch: 'main', url: 'https://github.com/nkrao8506/learn.git'
             }
         }
 
