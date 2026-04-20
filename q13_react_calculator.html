@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Q13 React Calculator</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    body { font-family: "Trebuchet MS", sans-serif; margin: 24px; }
+    .calc { max-width: 280px; border: 1px solid #ddd; padding: 12px; }
+    input, button { width: 100%; margin: 6px 0; padding: 8px; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    function Calculator() {
+      const [a, setA] = React.useState(0);
+      const [b, setB] = React.useState(0);
+      const [result, setResult] = React.useState(0);
+
+      return (
+        <div className="calc">
+          <h2>Simple Calculator</h2>
+          <input type="number" value={a} onChange={(e) => setA(Number(e.target.value))} />
+          <input type="number" value={b} onChange={(e) => setB(Number(e.target.value))} />
+
+          <button onClick={() => setResult(a + b)}>Add</button>
+          <button onClick={() => setResult(a - b)}>Subtract</button>
+          <button onClick={() => setResult(a * b)}>Multiply</button>
+          <button onClick={() => setResult(b !== 0 ? a / b : "Cannot divide by zero")}>Divide</button>
+
+          <h3>Result: {result}</h3>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<Calculator />);
+  </script>
+</body>
+</html>

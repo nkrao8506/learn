@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" ng-app="jobApp">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Q10 Job Registration Validation</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    body { font-family: Tahoma, sans-serif; margin: 24px; }
+    form { max-width: 420px; }
+    input, select { width: 100%; margin-bottom: 10px; padding: 8px; }
+    .error { color: #c62828; font-size: 13px; margin-top: -6px; margin-bottom: 8px; }
+    .ok { color: #2e7d32; font-weight: 700; }
+    button { padding: 8px 12px; }
+  </style>
+</head>
+<body ng-controller="JobCtrl">
+  <h2>Job Registration Form</h2>
+
+  <form name="jobForm" ng-submit="submit(jobForm)" novalidate>
+    <input type="text" name="fullName" ng-model="job.fullName" placeholder="Full Name" required ng-minlength="3" />
+    <div class="error" ng-show="(submitted || jobForm.fullName.$touched) && jobForm.fullName.$invalid">Name must be at least 3 characters.</div>
+
+    <input type="email" name="email" ng-model="job.email" placeholder="Email" required />
+    <div class="error" ng-show="(submitted || jobForm.email.$touched) && jobForm.email.$invalid">Enter a valid email.</div>
+
+    <!--
+Source - https://stackoverflow.com/a/19445717
+Posted by Vinay Lodha, modified by community. See post 'Timeline' for change history
+Retrieved 2026-04-20, License - CC BY-SA 4.0
+-->
+
+    <input type="text" name="country_code" placeholder="Country Code" pattern="[0-9]{1,4}" ng-model="job.country_code" required /> 
+    <div class="error" ng-show="(submitted || jobForm.country_code.$touched) && jobForm.country_code.$invalid">Enter a valid country code (1-4 digits).</div>
+
+    <input type="text" name="phone" ng-model="job.phone" placeholder="Phone Number" pattern="[0-9]{10}" required />
+    <div class="error" ng-show="(submitted || jobForm.phone.$touched) && jobForm.phone.$error.pattern">Phone number must be 10 digits.</div>
+
+    <div class="error" ng-show="(submitted || jobForm.phone.$touched) && jobForm.phone.$invalid">Enter a valid 10-digit phone number.</div>
+
+    <select name="role" ng-model="job.role" required>
+      <option value="">Select Role</option>
+      <option>Developer</option>
+      <option>Tester</option>
+      <option>Designer</option>
+    </select>
+    <div class="error" ng-show="(submitted || jobForm.role.$touched) && jobForm.role.$invalid">Please select a role.</div>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <p class="error" ng-if="submitted && !jobForm.$valid">Please correct the highlighted errors and submit again.</p>
+  <p class="ok" ng-if="success">{{success}}</p>
+
+  <script>
+    angular.module("jobApp", []).controller("JobCtrl", function($scope) {
+      $scope.job = {};
+      $scope.submitted = false;
+      $scope.success = "";
+
+      $scope.submit = function(form) {
+        $scope.submitted = true;
+        form.$setSubmitted();
+
+        if (form.$valid) {
+          $scope.success = "Registration successful for " + $scope.job.fullName;
+        } else {
+          $scope.success = "";
+        }
+      };
+    });
+  </script>
+</body>
+</html>

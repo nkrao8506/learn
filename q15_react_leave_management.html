@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Q15 React Leave Management</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    body { font-family: "Segoe UI", sans-serif; margin: 24px; }
+    .card { max-width: 420px; border: 1px solid #ddd; padding: 14px; }
+    input, select, button { width: 100%; margin: 8px 0; padding: 8px; }
+    .ok { color: #2e7d32; }
+    .error { color: #c62828; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    function LeaveManagement() {
+      const [balances, setBalances] = React.useState({ casual: 10, medical: 8 });
+      const [leaveType, setLeaveType] = React.useState("casual");
+      const [days, setDays] = React.useState(1);
+      const [message, setMessage] = React.useState("");
+
+      const applyLeave = () => {
+        const n = Number(days);
+        if (n <= 0) {
+          setMessage("Enter valid leave days.");
+          return;
+        }
+
+        if (n > balances[leaveType]) {
+          setMessage("Not enough leave balance.");
+          return;
+        }
+
+        setBalances((prev) => ({ ...prev, [leaveType]: prev[leaveType] - n }));
+        setMessage(`${n} day(s) ${leaveType} leave approved.`);
+      };
+
+      return (
+        <div className="card">
+          <h2>Leave Management System</h2>
+
+          <p>Casual Leave Available: {balances.casual}</p>
+          <p>Medical Leave Available: {balances.medical}</p>
+
+          <select value={leaveType} onChange={(e) => setLeaveType(e.target.value)}>
+            <option value="casual">Casual Leave</option>
+            <option value="medical">Medical Leave</option>
+          </select>
+
+          <input type="number" min="1" value={days} onChange={(e) => setDays(e.target.value)} />
+          <button onClick={applyLeave}>Apply Leave</button>
+
+          <p className={message.includes("approved") ? "ok" : "error"}>{message}</p>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<LeaveManagement />);
+  </script>
+</body>
+</html>

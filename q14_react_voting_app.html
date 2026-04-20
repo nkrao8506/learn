@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Q14 React Voting App</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    body { font-family: Cambria, serif; margin: 24px; }
+    .vote { max-width: 320px; border: 1px solid #ddd; padding: 12px; }
+    button { margin-right: 8px; padding: 8px 12px; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    function VotingApp() {
+      const [teaVotes, setTeaVotes] = React.useState(0);
+      const [coffeeVotes, setCoffeeVotes] = React.useState(0);
+
+      return (
+        <div className="vote">
+          <h2>Voting Application</h2>
+          <p>Vote your favorite drink:</p>
+
+          <button onClick={() => setTeaVotes(teaVotes + 1)}>Tea</button>
+          <button onClick={() => setCoffeeVotes(coffeeVotes + 1)}>Coffee</button>
+
+          <h3>Results</h3>
+          <p>Tea: {teaVotes}</p>
+          <p>Coffee: {coffeeVotes}</p>
+          <p>Winner: {teaVotes === coffeeVotes ? "Tie" : teaVotes > coffeeVotes ? "Tea" : "Coffee"}</p>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<VotingApp />);
+  </script>
+</body>
+</html>

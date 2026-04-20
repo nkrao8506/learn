@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" ng-app="employeeApp">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Q11 AngularJS $http JSON Example</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    body { font-family: Georgia, serif; margin: 24px; }
+    .card { border: 1px solid #ddd; padding: 12px; max-width: 360px; }
+    .error { color: #c62828; }
+  </style>
+</head>
+<body ng-controller="EmpCtrl">
+  <h2>Employee Data from Server ($http)</h2>
+  <button ng-click="loadEmployee()">Load Employee</button>
+
+  <div class="card" ng-if="employee">
+    <p><strong>ID:</strong> {{employee.id}}</p>
+    <p><strong>Name:</strong> {{employee.firstName}} {{employee.lastName}}</p>
+    <p><strong>Email:</strong> {{employee.email}}</p>
+  </div>
+
+  <p class="error" ng-if="error">{{error}}</p>
+
+  <script>
+    angular.module("employeeApp", []).controller("EmpCtrl", function($scope, $http) {
+      $scope.employee = null;
+      $scope.error = "";
+
+      $scope.loadEmployee = function() {
+        $scope.error = "";
+        $http.get("https://dummyjson.com/users/1")
+          .then(function(response) {
+            $scope.employee = response.data;
+          })
+          .catch(function() {
+            $scope.error = "Unable to load employee data from server.";
+          });
+      };
+    });
+  </script>
+</body>
+</html>
