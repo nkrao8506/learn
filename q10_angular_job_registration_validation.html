@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Q10 Job Registration Validation</title>
+  <title>Job Registration Validation</title>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   <style>
     body { font-family: Tahoma, sans-serif; margin: 24px; }
@@ -24,19 +24,6 @@
     <input type="email" name="email" ng-model="job.email" placeholder="Email" required />
     <div class="error" ng-show="(submitted || jobForm.email.$touched) && jobForm.email.$invalid">Enter a valid email.</div>
 
-    <!--
-Source - https://stackoverflow.com/a/19445717
-Posted by Vinay Lodha, modified by community. See post 'Timeline' for change history
-Retrieved 2026-04-20, License - CC BY-SA 4.0
--->
-
-    <input type="text" name="country_code" placeholder="Country Code" pattern="[0-9]{1,4}" ng-model="job.country_code" required /> 
-    <div class="error" ng-show="(submitted || jobForm.country_code.$touched) && jobForm.country_code.$invalid">Enter a valid country code (1-4 digits).</div>
-
-    <input type="text" name="phone" ng-model="job.phone" placeholder="Phone Number" pattern="[0-9]{10}" required />
-    <div class="error" ng-show="(submitted || jobForm.phone.$touched) && jobForm.phone.$error.pattern">Phone number must be 10 digits.</div>
-
-    <div class="error" ng-show="(submitted || jobForm.phone.$touched) && jobForm.phone.$invalid">Enter a valid 10-digit phone number.</div>
 
     <select name="role" ng-model="job.role" required>
       <option value="">Select Role</option>

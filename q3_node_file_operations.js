@@ -1,4 +1,4 @@
-// Q3: Node.js file read, write and other operations
+
 const fs = require("fs/promises");
 
 async function fileOperations() {
